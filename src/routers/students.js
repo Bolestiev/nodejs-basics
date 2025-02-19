@@ -27,57 +27,9 @@ router.get('/', ctrlWrapper(getStudentsController));
 
 router.get('/:studentId', isValidId, ctrlWrapper(getStudentByIdController));
 
-router.post(
-  '/',
-  validateBody(createStudentSchema),
-  ctrlWrapper(createStudentController),
-);
-
 router.delete('/:studentId', isValidId, ctrlWrapper(deleteStudentController));
 
-router.put(
-  '/:studentId',
-  isValidId,
-  validateBody(createStudentSchema),
-  ctrlWrapper(upsertStudentController),
-);
-
-router.patch(
-  '/:studentId',
-  isValidId,
-  validateBody(updateStudentSchema),
-  ctrlWrapper(patchStudentController),
-);
-
 router.use(authenticate);
-
-router.get('/', ctrlWrapper(getStudentsController));
-
-router.post(
-  '/',
-  checkRoles(ROLES.TEACHER),
-  upload.single('photo'), // додаємо цю middleware
-  validateBody(createStudentSchema),
-  ctrlWrapper(createStudentController),
-);
-
-router.put(
-  '/:studentId',
-  checkRoles(ROLES.TEACHER),
-  isValidId,
-  upload.single('photo'), // додаємо цю middleware
-  validateBody(createStudentSchema),
-  ctrlWrapper(upsertStudentController),
-);
-
-router.patch(
-  '/:studentId',
-  checkRoles(ROLES.TEACHER, ROLES.PARENT),
-  isValidId,
-  upload.single('photo'), // додаємо цю middleware
-  validateBody(updateStudentSchema),
-  ctrlWrapper(patchStudentController),
-);
 
 router.post(
   '/',
