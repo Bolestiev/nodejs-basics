@@ -23,13 +23,13 @@ import { ROLES } from '../constants/index.js';
 
 const router = Router();
 
+router.use(authenticate);
+
 router.get('/', ctrlWrapper(getStudentsController));
 
 router.get('/:studentId', isValidId, ctrlWrapper(getStudentByIdController));
 
 router.delete('/:studentId', isValidId, ctrlWrapper(deleteStudentController));
-
-router.use(authenticate);
 
 router.post(
   '/',

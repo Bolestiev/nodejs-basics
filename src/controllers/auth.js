@@ -15,19 +15,7 @@ export const registerUserController = async (req, res) => {
   });
 };
 
-export const loginUserController = async (req, res, next) => {
-  try {
-    console.log('🔍 loginUserController викликається!');
-    console.log('📩 Body:', req.body);
-
-    const { email, password } = req.body;
-    const user = await loginUser({ email, password });
-
-    res.json(user);
-  } catch (error) {
-    next(error);
-  }
-
+export const loginUserController = async (req, res) => {
   const session = await loginUser(req.body);
 
   res.cookie('refreshToken', session.refreshToken, {
